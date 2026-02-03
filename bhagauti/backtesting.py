@@ -179,9 +179,10 @@ class BacktestingEngine:
             self.current_candle = candle
             
             # Update current prices for all positions
-            for symbol, pos in self.portfolio.positions.items():
-                if symbol == candle.timestamp:  # Assuming symbol is in candle
-                    pos.current_price = candle.close
+            # In a real backtest, we'd match candle symbol to positions
+            # For simplicity, we update all positions with current candle price
+            for pos in self.portfolio.positions.values():
+                pos.current_price = candle.close
             
             # Get orders from strategy
             orders = strategy_func(self, candle)
