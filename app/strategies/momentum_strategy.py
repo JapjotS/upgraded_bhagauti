@@ -53,9 +53,13 @@ class MomentumStrategy:
             price_momentum = (current_price - avg_price) / avg_price
             
             # Volume analysis
-            # Use recent volume data, with fallback to candle volumes if available
-            avg_volume = sum(volumes[-10:]) / 10 if len(volumes) >= 10 else 1
-            current_volume = volumes[-1] if volumes else avg_volume
+            # Ensure we have enough data for meaningful volume comparison
+            if len(volumes) < 10:
+                signal['reason'] = 'Insufficient volume data for analysis'
+                return signal
+            
+            avg_volume = sum(volumes[-10:]) / 10
+            current_volume = volumes[-1]
             volume_ratio = current_volume / avg_volume if avg_volume > 0 else 1.0
             
             # Sentiment adjustment

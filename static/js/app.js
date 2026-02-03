@@ -55,7 +55,7 @@ function initializeCharts() {
                             ticks: {
                                 color: '#94a3b8',
                                 font: {
-                                    size: 10
+                                    fontSize: 10
                                 }
                             }
                         }

@@ -3,11 +3,20 @@ from app.core.config import Config
 
 
 class MassiveAPIClient:
-    """Massive API client for additional market data"""
+    """
+    Massive API client for additional market data
+    
+    NOTE: This is a PLACEHOLDER implementation with mock data.
+    Replace this entire class with actual Massive API integration:
+    - Update base_url to the real API endpoint
+    - Implement proper authentication
+    - Add actual API method calls
+    - Handle real response data
+    """
     
     def __init__(self):
         self.api_key = Config.MASSIVE_API_KEY
-        self.base_url = "https://api.massive.io/v1"  # Example URL
+        self.base_url = "https://api.massive.io/v1"  # PLACEHOLDER - Replace with actual API URL
         self.headers = {
             'Authorization': f'Bearer {self.api_key}',
             'Content-Type': 'application/json'
