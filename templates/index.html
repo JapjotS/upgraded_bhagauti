@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgraded Bhagauti - Live Trading Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <span class="logo-icon">⚡</span>
+                    Upgraded Bhagauti
+                </h1>
+                <div class="header-controls">
+                    <button class="btn btn-primary" onclick="refreshAll()">
+                        <span class="btn-icon">🔄</span> Refresh All
+                    </button>
+                    <div class="connection-status" id="connectionStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Connecting...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Symbols Grid -->
+            <div class="symbols-grid" id="symbolsGrid">
+                {% for symbol in symbols %}
+                <div class="symbol-card" id="card-{{ symbol }}" data-symbol="{{ symbol }}">
+                    <div class="card-header">
+                        <h3 class="symbol-name">{{ symbol }}</h3>
+                        <div class="signal-badge" id="signal-{{ symbol }}">
+                            <span class="badge">HOLD</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="price-display">
+                            <div class="current-price" id="price-{{ symbol }}">
+                                <span class="price-value">--</span>
+                            </div>
+                            <div class="price-change" id="change-{{ symbol }}">
+                                <span class="change-value">--</span>
+                            </div>
+                        </div>
+                        
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-label">Volume</span>
+                                <span class="metric-value" id="volume-{{ symbol }}">--</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Sentiment</span>
+                                <span class="metric-value" id="sentiment-{{ symbol }}">--</span>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="chart-{{ symbol }}"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <button class="btn btn-sm" onclick="refreshSymbol('{{ symbol }}')">Refresh</button>
+                        <span class="last-update" id="update-{{ symbol }}">Never</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Signal Feed -->
+            <aside class="signal-feed">
+                <h2 class="feed-title">Live Signals</h2>
+                <div class="feed-list" id="signalFeed">
+                    <div class="feed-empty">Waiting for signals...</div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

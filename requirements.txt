@@ -1,0 +1,25 @@
+# Core Framework
+Flask==3.0.0
+flask-socketio==5.3.5
+python-socketio==5.11.0
+
+# Redis and Celery for async task management
+redis==5.0.1
+celery==5.3.4
+
+# API integrations
+finnhub-python==2.4.19
+requests==2.31.0
+
+# WebSocket support
+eventlet==0.33.3
+
+# Data processing
+pandas==2.1.4
+numpy==1.26.2
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Utils
+python-dateutil==2.8.2
