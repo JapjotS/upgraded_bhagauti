@@ -53,9 +53,10 @@ class MomentumStrategy:
             price_momentum = (current_price - avg_price) / avg_price
             
             # Volume analysis
-            avg_volume = sum(volumes[-10:]) / 10 if len(volumes) >= 10 else 0
-            current_volume = volumes[-1] if volumes else 0
-            volume_ratio = current_volume / avg_volume if avg_volume > 0 else 0
+            # Use recent volume data, with fallback to candle volumes if available
+            avg_volume = sum(volumes[-10:]) / 10 if len(volumes) >= 10 else 1
+            current_volume = volumes[-1] if volumes else avg_volume
+            volume_ratio = current_volume / avg_volume if avg_volume > 0 else 1.0
             
             # Sentiment adjustment
             sentiment_score = sentiment.get('sentiment_score', 0.5) if sentiment else 0.5
