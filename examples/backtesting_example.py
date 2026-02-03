@@ -16,7 +16,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def generate_sample_candles(symbol: str, days: int = 100, initial_price: float = 50000.0):
+def generate_sample_candles(days: int = 100, initial_price: float = 50000.0):
     """Generate sample candlestick data for demonstration."""
     import random
     
@@ -62,7 +62,7 @@ def main():
     
     # Generate sample historical data
     logger.info("Generating sample historical data...")
-    candles = generate_sample_candles(symbol=config.symbol, days=100)
+    candles = generate_sample_candles(days=100)
     logger.info(f"Generated {len(candles)} candles")
     
     # Create backtesting engine

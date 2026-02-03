@@ -178,9 +178,8 @@ class BacktestingEngine:
         for candle in candles:
             self.current_candle = candle
             
-            # Update current prices for all positions
-            # In a real backtest, we'd match candle symbol to positions
-            # For simplicity, we update all positions with current candle price
+            # Update current prices for all positions with current candle close price
+            # This assumes all candles in a backtest are for the same symbol
             for pos in self.portfolio.positions.values():
                 pos.current_price = candle.close
             
@@ -221,9 +220,8 @@ class BacktestingEngine:
         total_pnl = final_value - self.initial_capital
         total_return_pct = (total_pnl / self.initial_capital) * 100
         
-        # Calculate win rate
-        winning_trades = [t for t in self.executed_trades 
-                         if t.side == OrderSide.SELL]  # Simplified
+        # Note: Win rate calculation would require tracking buy/sell pairs
+        # For now, we just count total trades
         total_trades = len(self.executed_trades)
         
         # Calculate max drawdown
